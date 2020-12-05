@@ -1,0 +1,43 @@
+body{
+    background-color:#15155f;   
+}
+
+.container{
+    
+}
+
+.jumbotron{
+    margin-top: 32px;
+}
+
+.open{
+    min-width:100%;
+}
+
+/* .pizarra:hover{
+    width: 420px;
+    height: 155px;
+} */
+
+#canvas-1{
+    background-color: white;
+}
+
+.no-active:hover{
+    cursor: pointer;
+    width: 310px;
+    height: 160px;
+}
+
+.no-active{
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px rgb(0,0,0,0.4);
+    width: 300px;
+    height: 150px;
+}
+
+.active{
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+}
