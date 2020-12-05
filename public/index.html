@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <div class="jumbotron">
-            <button type="button" class="btn btn-outline-danger">Close</button>
+            <button type="button" class="btn-close d-none btn btn-outline-danger">Close</button>
             <div class="row">
                 <div class="pizarra col-6">
                     <canvas id="canvas-1" class="no-active">
@@ -25,6 +25,7 @@
         let canv = document.querySelector('#canvas-1')
         let pizarra = document.querySelector('.pizarra')
         let jumbotron = document.querySelector('.jumbotron')
+        let closeBtn = document.querySelector('.btn-close')
 
         canv.addEventListener('click', function(){
             pizarra.classList.remove('col-6')
@@ -32,13 +33,19 @@
 
             canv.classList.remove('no-active')
             canv.classList.add('active')
+            closeBtn.classList.remove('d-none')
         }, false)
 
-        window.addEventListener('DOMContentLoaded', function(){
-            if(pizarra.classList.contains('open')){
-                // 
-            }
+        closeBtn.addEventListener('click', function(){
+            canv.classList.remove('active')
+            canv.classList.add('no-active')
         }, false)
+
+        // window.addEventListener('DOMContentLoaded', function(){
+        //     if(pizarra.classList.contains('open')){
+        //         
+        //     }
+        // }, false)
     </script>
     <!-- <script type="text/javascript" src="/public/canvas.js"></script> -->
 </body>
