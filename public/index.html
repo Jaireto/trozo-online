@@ -19,29 +19,78 @@
                 </div>
             </div>
         </div>
-        
     </div>
+
     <script>
         let canv = document.querySelector('#canvas-1')
         let pizarra = document.querySelector('.pizarra')
         let jumbotron = document.querySelector('.jumbotron')
         let closeBtn = document.querySelector('.btn-close')
 
-        canv.addEventListener('click', function(){
+        canv.addEventListener('click', () => {
             pizarra.classList.remove('col-6')
             pizarra.classList.add('open')
 
             canv.classList.remove('no-active')
             canv.classList.add('active')
             closeBtn.classList.remove('d-none')
+            
+            initializeCanvas()
         }, false)
 
-        closeBtn.addEventListener('click', function(){
+        closeBtn.addEventListener('click', () => {
             canv.classList.remove('active')
             canv.classList.add('no-active')
+            closeBtn.classList.add('d-none')
         }, false)
 
-        // window.addEventListener('DOMContentLoaded', function(){
+        function initializeCanvas(){
+            let dibujando = false
+            let ctx = canv.getContext('2d')
+
+            let coordenadas = {
+                x: 0,
+                y: 0
+            }
+            ctx.lineWidth = 5
+
+            function obtenerPosicion(event){ 
+	            coordenadas.x = event.clientX - canv.offsetLeft
+	            coordenadas.y = event.clientY - canv.offsetTop
+            } 
+
+            canv.addEventListener('mousedown', () => {
+
+                dibujando = true
+                obtenerPosicion(event)
+
+            })
+
+            canv.addEventListener('mouseup', () => {
+                dibujando = false
+            })
+
+            canv.addEventListener('mousemove', (event) => {
+                if (!dibujando) return
+
+                ctx.beginPath()
+                ctx.lineCap = 'round'
+
+                ctx.strokeStyle = '#5858ef'
+
+                ctx.moveTo(coordenadas.x, coordenadas.y)
+
+                obtenerPosicion(event)
+
+                ctx.lineTo(coordenadas.x , coordenadas.y)
+
+                ctx.stroke()
+
+            })
+
+        }
+
+        // window.addEventListener('DOMContentLoaded', () =>{
         //     if(pizarra.classList.contains('open')){
         //         
         //     }
