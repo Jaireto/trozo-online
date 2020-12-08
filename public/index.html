@@ -13,7 +13,12 @@
             <button type="button" class="btn-close d-none btn btn-outline-danger">Close</button>
             <div class="row">
                 <div class="pizarra col-6">
-                    <canvas id="canvas-1" class="no-active">
+
+                    <div class="board active">
+                        
+                    </div>
+
+                    <canvas id="canvas-1" class="no-active" width="800" height="600">
                         Error de incompatibilidad
                     </canvas>
                 </div>
@@ -24,24 +29,47 @@
     <script>
         let canv = document.querySelector('#canvas-1')
         let pizarra = document.querySelector('.pizarra')
+        let board = document.querySelector('.board')
         let jumbotron = document.querySelector('.jumbotron')
         let closeBtn = document.querySelector('.btn-close')
 
-        canv.addEventListener('click', () => {
+        function displayBlock(elem){
+            if(elem.classList.contains('no-active')){
+                elem.classList.remove('no-active')
+                elem.classList.add('active')
+            }
+        }
+
+        function hideBlock(elem){
+            if(elem.classList.contains('active')){
+                elem.classList.remove('active')
+                elem.classList.add('no-active')
+            }
+        }
+
+        board.addEventListener('click', () => {
             pizarra.classList.remove('col-6')
             pizarra.classList.add('open')
-
-            canv.classList.remove('no-active')
-            canv.classList.add('active')
             closeBtn.classList.remove('d-none')
+
+            hideBlock(board)
+
+            displayBlock(canv)
             
             initializeCanvas()
         }, false)
 
+        canv.addEventListener('resize', () => {
+            ctx.canvas.width = window.innerWidth
+	        ctx.canvas.height = window.innerHeight
+        })
+
         closeBtn.addEventListener('click', () => {
-            canv.classList.remove('active')
-            canv.classList.add('no-active')
+            hideBlock(canv)
+
             closeBtn.classList.add('d-none')
+
+            displayBlock(board)
         }, false)
 
         function initializeCanvas(){
@@ -52,18 +80,16 @@
                 x: 0,
                 y: 0
             }
-            ctx.lineWidth = 5
+            ctx.lineWidth = 1
 
             function obtenerPosicion(event){ 
 	            coordenadas.x = event.clientX - canv.offsetLeft
-	            coordenadas.y = event.clientY - canv.offsetTop
+                coordenadas.y = event.clientY - canv.offsetTop
             } 
 
             canv.addEventListener('mousedown', () => {
-
                 dibujando = true
                 obtenerPosicion(event)
-
             })
 
             canv.addEventListener('mouseup', () => {
@@ -76,7 +102,7 @@
                 ctx.beginPath()
                 ctx.lineCap = 'round'
 
-                ctx.strokeStyle = '#5858ef'
+                ctx.strokeStyle = '#000000'
 
                 ctx.moveTo(coordenadas.x, coordenadas.y)
 
@@ -89,12 +115,6 @@
             })
 
         }
-
-        // window.addEventListener('DOMContentLoaded', () =>{
-        //     if(pizarra.classList.contains('open')){
-        //         
-        //     }
-        // }, false)
     </script>
     <!-- <script type="text/javascript" src="/public/canvas.js"></script> -->
 </body>
