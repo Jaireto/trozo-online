@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-// const io = require('socket.io')()
+const io = require('socket.io')()
 const path = require('path')
 // const engine  = require('react-engine')
 
@@ -12,7 +12,11 @@ app.use(express.static('./public'))
 //     socket.send('hi')
 // })
 
-// app.get('/', (req, res) => res.send())
+// io.on("disconnect", () => {
+//     console.log("Client disconnected")
+// });
+
+app.get('/', (req, res) => res.sendFile('index.html'))
 
 app.listen(app.get('port'), function(){
     console.log(`server listening on port ${app.get('port')}`)
