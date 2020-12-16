@@ -16,7 +16,7 @@ app.use(express.static('./public'))
 //     console.log("Client disconnected")
 // });
 
-app.get('/', (req, res) => res.sendFile('index.html'))
+// app.get('/', (req, res) => res.sendFile('index.html'))
 
 app.listen(app.get('port'), function(){
     console.log(`server listening on port ${app.get('port')}`)
