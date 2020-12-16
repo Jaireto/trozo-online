@@ -7,8 +7,6 @@ const Canvas = props => {
     const [state, setCanvasState] = useState({canv: "no-active", board: "active"})
 
     const canvasRef = useRef(null)
-    let canvasWidth = "800" 
-    let canvasHeight = "600"
 
     function initializeCanvas(){
         const canv = canvasRef.current
@@ -70,7 +68,7 @@ const Canvas = props => {
             <div onClick={() => setCanvasState({canv:'active', board:'no-active'})} className={`${state.board} board`}>
 
             </div>
-            <canvas id="canvas-1" className={state.canv} width={canvasWidth} height={canvasHeight} ref={canvasRef} {...props} >
+            <canvas id="canvas-1" className={state.canv} width='800' height='600' ref={canvasRef} {...props} >
                 Tu navegador no es compatible
             </canvas>
             <button onClick={() => setCanvasState({canv:"no-active", board: "active"})} type="button" className={`${state.canv} btn-close btn btn-outline-danger`}>Close</button>
