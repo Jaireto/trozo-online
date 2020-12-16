@@ -23,8 +23,9 @@ const Canvas = props => {
         ctx.lineWidth = 1
 
         function obtenerPosicion(e){ 
-            coordenadas.x = (e.clientX - canv.offsetLeft) - 95 
-            coordenadas.y = (e.clientY - canv.offsetTop) - 95 //me da paja hacer los calculos, esto funciona
+            let rect = canv.getBoundingClientRect()
+            coordenadas.x = (e.clientX - rect.left)  
+            coordenadas.y = (e.clientY - rect.top)
         } 
 
         canv.addEventListener('mousedown', event => {
@@ -55,7 +56,6 @@ const Canvas = props => {
     }
     
     useEffect(() => {
-
         // const socket = io(endpoint)
 
         // socket.on('connect', () => {
@@ -63,8 +63,6 @@ const Canvas = props => {
         // })
 
         initializeCanvas()
-
-        
     }, [])
     
     return (

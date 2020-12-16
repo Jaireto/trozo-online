@@ -7,18 +7,11 @@ body{
 
 .jumbotron{
     margin-top: 32px;
-    height: 800px;
+    height: 1200px;
 }
 
 .open{
     min-width:100%;
-}
-
-.board{
-    display: inline-block;
-    width: 300px;
-    height: 300px;
-    background-color: white;
 }
 
 .board:hover{
@@ -42,4 +35,11 @@ body{
 .active{
     display: block;
     border-radius: 5px;
+}
+
+.board{
+    display: inline-block;
+    width: 300px;
+    height: 300px;
+    background-color: white;
 }
