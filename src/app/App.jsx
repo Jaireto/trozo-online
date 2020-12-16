@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import Home from './components/Home'
+import Canvas from './components/Canvas'
  
 class App extends Component {
     render () {
         return (
-            <div>
-                <Home/>
-                <Home/>
+            <div className="row jumbotron">
+                <Canvas />
+                <Canvas />
             </div>
         )
     }

@@ -65,14 +65,16 @@ const Canvas = props => {
     
     return (
         <div>
-            <div onClick={() => setCanvasState({canv:'active', board:'no-active'})} className={`${state.board} board`}>
-
+            <div className="col-6">
+                <div onClick={() => setCanvasState({canv:'active', board:'no-active'})} className={`${state.board} board`}>
+        
+                </div>
+                <canvas id="canvas-1" className={state.canv} width='800' height='600' ref={canvasRef} {...props}>
+                    Tu navegador no es compatible
+                </canvas>
+                <button onClick={() => setCanvasState({canv:"no-active", board: "active"})} type="button" className={`${state.canv} btn-close btn btn-outline-danger`}>Close</button>
             </div>
-            <canvas id="canvas-1" className={state.canv} width='800' height='600' ref={canvasRef} {...props} >
-                Tu navegador no es compatible
-            </canvas>
-            <button onClick={() => setCanvasState({canv:"no-active", board: "active"})} type="button" className={`${state.canv} btn-close btn btn-outline-danger`}>Close</button>
-        </div>
+        </div> 
     )
 
 }
