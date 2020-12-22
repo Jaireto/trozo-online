@@ -1,6 +1,6 @@
-import React, { Component, useRef, useEffect, useState } from 'react'
-// import io from 'socket.io/client-dist/socket.io'
-const endpoint = "http://127.0.0.1:3000"
+import React, { useRef, useEffect, useState } from 'react'
+// import io from 'socket.io-client'
+// const endpoint = "http://127.0.0.1:3000"
 
 const Canvas = props => {
 
@@ -24,7 +24,7 @@ const Canvas = props => {
             let rect = canv.getBoundingClientRect()
             coordenadas.x = (e.clientX - rect.left)  
             coordenadas.y = (e.clientY - rect.top)
-        } 
+        }
 
         canv.addEventListener('mousedown', event => {
             dibujando = true
@@ -54,26 +54,26 @@ const Canvas = props => {
     }
     
     useEffect(() => {
-        // const socket = io(endpoint)
+        // const socket = io(endpoint, {
+        //     withCredentials: true,
+        // })
 
         // socket.on('connect', () => {
-        //     socket.on('hi', () => console.log('asd'))
+        //     socket.on('hi', () => console.log('asdasdasd'))
         // })
 
         initializeCanvas()
     }, [])
     
     return (
-        <div>
-            <div className="col-6">
-                <div onClick={() => setCanvasState({canv:'active', board:'no-active'})} className={`${state.board} board`}>
-        
-                </div>
-                <canvas id="canvas-1" className={state.canv} width='800' height='600' ref={canvasRef} {...props}>
-                    Tu navegador no es compatible
-                </canvas>
-                <button onClick={() => setCanvasState({canv:"no-active", board: "active"})} type="button" className={`${state.canv} btn-close btn btn-outline-danger`}>Close</button>
+        <div className="col-6">
+            <div onClick={() => setCanvasState({canv:'active', board:'no-active'})} className={`${state.board} board`}>
+    
             </div>
+            <canvas id="canvas-1" className={state.canv} width='800' height='600' ref={canvasRef} {...props}>
+                Tu navegador no es compatible
+            </canvas>
+            <button onClick={() => setCanvasState({canv:"no-active", board: "active"})} type="button" className={`${state.canv} btn-close btn btn-outline-danger`}>Close</button>
         </div> 
     )
 
