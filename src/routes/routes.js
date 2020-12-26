@@ -5,7 +5,7 @@ const router = express.Router()
 router.get('/', (req, res) => res.send('asd'))
 
 
-router.get('/api/funciona', (req, res) => {
+router.get('/funciona', (req, res) => {
     res.json({
         body: 'funciona'
     })

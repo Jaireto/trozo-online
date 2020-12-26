@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react'
-// import io from 'socket.io-client'
-// const endpoint = "http://127.0.0.1:3000"
+// import { io } from 'socket.io-client'
 
 const Canvas = props => {
 
@@ -22,8 +21,9 @@ const Canvas = props => {
 
         function obtenerPosicion(e){ 
             let rect = canv.getBoundingClientRect()
-            coordenadas.x = (e.clientX - rect.left)  
+            coordenadas.x = (e.clientX - rect.left)
             coordenadas.y = (e.clientY - rect.top)
+            return coordenadas
         }
 
         canv.addEventListener('mousedown', event => {
@@ -54,27 +54,28 @@ const Canvas = props => {
     }
     
     useEffect(() => {
-        // const socket = io(endpoint, {
-        //     withCredentials: true,
-        // })
+        // const socket = io()
 
         // socket.on('connect', () => {
-        //     socket.on('hi', () => console.log('asdasdasd'))
+        //     console.log('asdasdasdasd')
         // })
+        // socket.on('hi', () => console.log(socket))
 
         initializeCanvas()
     }, [])
     
     return (
-        <div className="col-6">
-            <div onClick={() => setCanvasState({canv:'active', board:'no-active'})} className={`${state.board} board`}>
-    
-            </div>
-            <canvas id="canvas-1" className={state.canv} width='800' height='600' ref={canvasRef} {...props}>
-                Tu navegador no es compatible
-            </canvas>
-            <button onClick={() => setCanvasState({canv:"no-active", board: "active"})} type="button" className={`${state.canv} btn-close btn btn-outline-danger`}>Close</button>
-        </div> 
+        <div className="row jumbotron">
+            <div className="col-6">
+                <div onClick={() => setCanvasState({canv:'active', board:'no-active'})} className={`${state.board} board`}>
+        
+                </div>
+                <canvas id="canvas-1" className={state.canv} width='800' height='600' ref={canvasRef} {...props}>
+                    Tu navegador no es compatible
+                </canvas>
+                <button onClick={() => setCanvasState({canv:"no-active", board: "active"})} type="button" className={`${state.canv} btn-close btn btn-outline-danger`}>Close</button>
+            </div> 
+        </div>
     )
 
 }
