@@ -6,14 +6,20 @@ const Canvas = props => {
     const [state, setCanvasState] = useState({canv: "no-active", board: "active"})
 
     const canvasRef = useRef(null)
+    
+    useEffect(() => {
+        const socket = io()
 
-    function initializeCanvas(){
         const canv = canvasRef.current
         const ctx = canv.getContext('2d')
 
         let dibujando = false
 
         let coordenadas = {
+            x: 0,
+            y: 0
+        }
+        let oldCoord = {
             x: 0,
             y: 0
         }
@@ -35,31 +41,43 @@ const Canvas = props => {
             dibujando = false
         })
 
-        canv.addEventListener('mousemove', event => {
+        canv.addEventListener('mousemove', dibujar, false)
+
+        function dibujar(event){
             if (!dibujando) return
 
             ctx.beginPath()
             ctx.lineCap = 'round'
-
             ctx.strokeStyle = '#000000'
-
             ctx.moveTo(coordenadas.x, coordenadas.y)
 
+            oldCoord.x = coordenadas.x
+            oldCoord.y = coordenadas.y
+            
             obtenerPosicion(event)
 
+            socket.emit('drawing', {oldCoord, coordenadas})
+            
             ctx.lineTo(coordenadas.x , coordenadas.y)
-
             ctx.stroke()
-        })
-    }
-    
-    useEffect(() => {
-        const socket = io()
+
+        }
+
+        function dibujandoSocket(data){
+            ctx.beginPath()
+            ctx.lineCap = 'round'
+            ctx.strokeStyle = '#000000'
+            ctx.moveTo(data.oldCoord.x, data.oldCoord.y)
+            ctx.lineTo(data.coordenadas.x, data.coordenadas.y)
+            ctx.stroke()
+        }
 
         socket.on('connect', () => console.log('conected'))
-        socket.on('new user', () => console.log(socket.id))
+        socket.on('new user', data => console.log(data))
+        socket.on('drawing', data => {
+            dibujandoSocket(data)
+        })
 
-        initializeCanvas()
     }, [])
     
     return (

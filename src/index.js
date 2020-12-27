@@ -7,33 +7,24 @@ const root = './public'
 app.set('port', process.env.PORT || 8080)
 app.use(express.static('./public'))
 
+let roomsList = []
 let roomName
-
-// app.use('/',require('./routes/routes'))
-
-// app.get('/', (req, res) => {
-//     res.sendFile('index.html', { root })
-// })
-
-// app.post('/rooms/:roomName', (req, res) => {
-//     // console.log(req.params.roomName, req.params.inputFrom)
-//     roomName = req.params.roomName
-    
-//     res.redirect(`/canvas/${roomName}`).data
-// })
 
 //middleware auth room
 
 app.get('/canvas/:roomName', (req, res) =>{
-    console.log(req.params)
-    
-    // roomName = req.params.roomName
+    roomName = req.params.roomName
+    roomsList.push(roomName)
     res.sendFile('index.html', { root })
 })
 
 io.on('connection', socket =>{
     socket.join(roomName)
-    io.to(roomName).emit('new user')
+    io.to(roomName).emit('new user', {
+        msg: 'new user connected'
+    })
+
+    socket.on('drawing', data => socket.broadcast.emit('drawing', data))
 })
 
 
