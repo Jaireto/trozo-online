@@ -1,13 +1,23 @@
 const express = require('express')
-const path = require('path')
+const root = './public'
 const router = express.Router()
 
-router.get('/', (req, res) => res.send('asd'))
+router.get('/', (req, res) => {
+    res.sendFile('index.html'),{
+        root
+    }
+})
 
+router.use((req, res, next) => {
 
-router.get('/funciona', (req, res) => {
-    res.json({
-        body: 'funciona'
+    
+
+    next()
+})
+
+router.get('/canvas', (req, res) =>{
+    res.sendFile('index.html', {
+        root
     })
 })
 

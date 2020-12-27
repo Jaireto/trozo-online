@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react'
-// import { io } from 'socket.io-client'
+import { io } from 'socket.io-client'
 
 const Canvas = props => {
 
@@ -54,12 +54,10 @@ const Canvas = props => {
     }
     
     useEffect(() => {
-        // const socket = io()
+        const socket = io()
 
-        // socket.on('connect', () => {
-        //     console.log('asdasdasdasd')
-        // })
-        // socket.on('hi', () => console.log(socket))
+        socket.on('connect', () => console.log('conected'))
+        socket.on('new user', () => console.log(socket.id))
 
         initializeCanvas()
     }, [])

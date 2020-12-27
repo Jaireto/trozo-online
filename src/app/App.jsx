@@ -8,17 +8,9 @@ const App = () => {
     return (
         <Router>
             <Route path="/" exact component={Home} />
-            <Route path="/canvas" exact component={Canvas} />
+            <Route path="/canvas/:roomName" component={Canvas} />
         </Router>
     )
 }
-
-// const App = () => {
-//     return (
-//         <div className="row jumbotron">
-//             <Canvas />
-//         </div>
-//     )
-// }
 
 export default App

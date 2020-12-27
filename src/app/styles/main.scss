@@ -52,20 +52,26 @@ body{
 .form-container{
     text-align: center;
     width: 100%;
+    display: grid;
 }
 
 .room_input_holder{
-    display: none;
+    margin: auto auto;
+    .room-input{
+        height: 76px;
+        color: #fff;
+        text-align: center;
+        font-size: 36px;
+        width: 460px;
+        border: none;
+        background: transparent;
+        border-bottom: 1px solid #000;
 
-    &.room-active{
-        display: inline-grid;
+        &:focus{
+            outline: none;
+        }
     }
 }
-
-/* .pizarra:hover{
-    width: 420px;
-    height: 155px;
-} */
 
 #canvas-1{
     background-color: white;

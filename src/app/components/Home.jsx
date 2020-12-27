@@ -1,38 +1,41 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
+import axios from 'axios'
 
 const Home = () => {
     const roomHolderRef = useRef(null)
-    const nameHolderRef = useRef(null)
+    const createRoomInput = useRef(null)
+    const joinRoomInput = useRef(null)
 
-    const createNickName = () => {
-        const roomHolder = roomHolderRef.current
-        const nameHolder = nameHolderRef.current
-        roomHolder.classList.add('room-active')
-        nameHolder.classList.remove('nick-active')
+    const createRoom = e => {
+        e.preventDefault()
+
+        axios.get(`/canvas/${createRoomInput.current.value}`)
+            .then(res => window.location.href = `/canvas/${createRoomInput.current.value}`)
+            .catch(err => console.log(err))
     }
 
-    // useEffect(() => {
+    const joinRoom = e => {
+        e.preventDefault()
 
-    // }, [])
+        axios.get(`/canvas/${joinRoomInput.current.value}`)
+            .then(res => window.location.href = `/canvas/${joinRoomInput.current.value}`)
+            .catch(err => console.log(err))
+    }
 
     return (
         <div className="jumbotron home-container">
 
-            <form className="form-container">
-                <div className="name_input_holder nick-active" ref={nameHolderRef}>
-                    <input required id="name_input" type="text" maxLength="12" placeholder="Choose your nickname"/>
-                    <a href="#" className="create-btn btn btn-primary" onClick={createNickName}>Create</a>
-                </div>
+                <div className="room_input_holder" ref={roomHolderRef}>
+                    <form className="form-container" onSubmit={createRoom}>
+                        <input className="room-input" required type="text" placeholder="Create Room" ref={createRoomInput} />
+                        <button className="create-btn btn btn-primary"  type="submit">Create a room</button>
+                    </form>
 
-                <div className="room_input_holder" ref={roomHolderRef}> 
-                    <input required type="text" placeholder="Room name"/>
-                    <a href="#">Create a room</a>
-
-                    <input required type="text" placeholder="Room name"/>
-                    <a href="#">Join room</a>
+                    <form className="form-container" onSubmit={joinRoom}>
+                        <input className="room-input" required type="text" placeholder="Join Room" ref={joinRoomInput} />
+                        <button className="create-btn btn btn-primary" type="submit">Join room</button>
+                    </form>
                 </div>
-            </form>
-            
 
         </div>
     )
