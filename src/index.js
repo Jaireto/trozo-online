@@ -24,7 +24,7 @@ io.on('connection', socket =>{
         msg: 'new user connected'
     })
 
-    socket.on('drawing', data => socket.broadcast.emit('drawing', data))
+    socket.on('drawing', data => socket.to(data.roomName).emit('drawing', data))
 })
 
 

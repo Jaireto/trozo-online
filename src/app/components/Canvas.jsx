@@ -12,6 +12,7 @@ const Canvas = props => {
 
         const canv = canvasRef.current
         const ctx = canv.getContext('2d')
+        const roomName = window.location.href.split('/')[4]
 
         let dibujando = false
 
@@ -56,7 +57,7 @@ const Canvas = props => {
             
             obtenerPosicion(event)
 
-            socket.emit('drawing', {oldCoord, coordenadas})
+            socket.emit('drawing', {oldCoord, coordenadas, roomName})
             
             ctx.lineTo(coordenadas.x , coordenadas.y)
             ctx.stroke()
@@ -73,7 +74,7 @@ const Canvas = props => {
         }
 
         socket.on('connect', () => console.log('conected'))
-        socket.on('new user', data => console.log(data))
+        socket.on('new user', data => console.log(data.msj))
         socket.on('drawing', data => {
             dibujandoSocket(data)
         })
